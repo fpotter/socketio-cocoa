@@ -167,6 +167,7 @@
 }
 
 - (void)onTimeout {
+  [self log:@"Timed out waiting for heartbeat."];
   [self onDisconnect];
 }
 
