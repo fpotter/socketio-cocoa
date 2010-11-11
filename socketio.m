@@ -1,3 +1,11 @@
+//
+//  socketio.m
+//  SocketIoCocoa
+//
+//  Created by Fred Potter on 11/11/10.
+//  Copyright 2010 Fred Potter. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 
 #import "SocketIoClient.h"
