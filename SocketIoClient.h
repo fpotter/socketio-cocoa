@@ -39,13 +39,23 @@
 - (void)connect;
 - (void)disconnect;
 
+/**
+ * Rather than coupling this with any specific JSON library, you always
+ * pass in a string (either _the_ string, or the the JSON-encoded version
+ * of your object), and indicate whether or not you're passing a JSON object.
+ */
 - (void)send:(NSString *)data isJSON:(BOOL)isJSON;
 
 @end
 
 @protocol SocketIoClientDelegate <NSObject>
 
+/**
+ * Message is always returned as a string, even when the message was meant to come
+ * in as a JSON object.  Decoding the JSON is left as an exercise for the receiver.
+ */
 - (void)socketIoClient:(SocketIoClient *)client didReceiveMessage:(NSString *)message isJSON:(BOOL)isJSON;
+
 - (void)socketIoClientDidConnect:(SocketIoClient *)client;
 - (void)socketIoClientDidDisconnect:(SocketIoClient *)client;
 
