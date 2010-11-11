@@ -33,6 +33,12 @@ You'll get sweet callbacks on your delegate when stuff goes down...
 
 ## Getting the code
 
+If you have git 1.7+ ...
+
+    git clone git://github.com/fpotter/socketio-cocoa.git --recursive
+
+or, earlier...
+
     git clone git://github.com/fpotter/socketio-cocoa.git socketio-cocoa
     cd socketio-cocoa
     git submodule init
