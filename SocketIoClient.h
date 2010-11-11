@@ -33,6 +33,9 @@
 }
 
 @property (nonatomic, retain) NSString *sessionId;
+@property (nonatomic, readonly) BOOL isConnected;
+@property (nonatomic, readonly) BOOL isConnecting;
+
 @property (nonatomic, assign) id<SocketIoClientDelegate> delegate;
 
 @property (nonatomic, assign) NSTimeInterval connectTimeout;
@@ -64,5 +67,9 @@
 
 - (void)socketIoClientDidConnect:(SocketIoClient *)client;
 - (void)socketIoClientDidDisconnect:(SocketIoClient *)client;
+
+@optional
+
+- (void)socketIoClient:(SocketIoClient *)client didSendMessage:(NSString *)message isJSON:(BOOL)isJSON;
 
 @end

@@ -11,10 +11,16 @@
 #import "SocketIoClient.h"
 
 @interface SocketIoHandler : NSObject <SocketIoClientDelegate> {
+  NSString *_disconnectOnMessage;
 }
+
+@property (nonatomic, retain) NSString *disconnectOnMessage;
+
 @end
 
 @implementation SocketIoHandler
+
+@synthesize disconnectOnMessage = _disconnectOnMessage;
 
 - (void)socketIoClientDidConnect:(SocketIoClient *)client {
   printf("SocketIO Connected.\n");
@@ -26,6 +32,14 @@
 
 - (void)socketIoClient:(SocketIoClient *)client didReceiveMessage:(NSString *)message isJSON:(BOOL)isJSON {
   printf("SocketIO Received %s Message:\n%s\n", isJSON ? "JSON" : "TEXT", [message UTF8String]);
+}
+
+- (void)socketIoClient:(SocketIoClient *)client didSendMessage:(NSString *)message isJSON:(BOOL)isJSON {
+  printf("SocketIO Sent.\n");
+  
+  if ([message isEqualToString:_disconnectOnMessage]) {
+    [client disconnect];
+  }
 }
 
 @end
@@ -75,16 +89,18 @@ int main (int argc, const char * argv[]) {
     SocketIoClient *client = [[SocketIoClient alloc] initWithHost:host port:port];
     
     SocketIoHandler *handler = [[SocketIoHandler alloc] init];
+    [handler setDisconnectOnMessage:message];
+
     client.delegate = handler;
-    
+
     [client connect];
     
     [client send:message isJSON:NO];
     
     // The message gets sent, then we just sleep forever...
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-    while (YES) {
-      [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    while ((client.isConnected || client.isConnecting)) {
+      [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
     }
     
   } else {

@@ -13,12 +13,14 @@
 - (void)log:(NSString *)message;
 - (NSString *)encode:(NSArray *)messages;
 - (void)onDisconnect;
+- (void)notifyMessagesSent:(NSArray *)messages;
 @end
 
 @implementation SocketIoClient
 
 @synthesize sessionId = _sessionId, delegate = _delegate, connectTimeout = _connectTimeout, 
-            tryAgainOnConnectTimeout = _tryAgainOnConnectTimeout, heartbeatTimeout = _heartbeatTimeout;
+            tryAgainOnConnectTimeout = _tryAgainOnConnectTimeout, heartbeatTimeout = _heartbeatTimeout,
+            isConnecting = _isConnecting, isConnected = _isConnected;
 
 - (id)initWithHost:(NSString *)host port:(int)port {
   if (self = [super init]) {
@@ -83,8 +85,7 @@
 - (void)disconnect {
   [self log:@"Disconnect"];
   [_webSocket close];
-  [_webSocket release];
-  _webSocket = nil;
+  [self onDisconnect];
 }
 
 - (void)send:(NSString *)data isJSON:(BOOL)isJSON {
@@ -100,11 +101,26 @@
   if (!_isConnected) {
     [_queue addObject:message];
   } else {
-    [_webSocket send:[self encode:[NSArray arrayWithObject:message]]];
+    NSArray *messages = [NSArray arrayWithObject:message];
+
+    [_webSocket send:[self encode:messages]];
+    
+    [self notifyMessagesSent:messages];
   }
 }
 
 #pragma mark SocketIO Related Protocol
+
+- (void)notifyMessagesSent:(NSArray *)messages {
+  if ([_delegate respondsToSelector:@selector(socketIoClient:didSendMessage:isJSON:)]) {
+    for (NSDictionary *message in messages) {
+      NSString *data = [message objectForKey:@"data"];
+      NSString *type = [message objectForKey:@"type"];
+
+      [_delegate socketIoClient:self didSendMessage:data isJSON:[type isEqualToString:@"json"]];
+    }
+  }
+}
 
 - (NSString *)encode:(NSArray *)messages {
   NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
@@ -200,6 +216,9 @@
 - (void)doQueue {
   if ([_queue count] > 0) {
     [_webSocket send:[self encode:_queue]];
+    
+    [self notifyMessagesSent:_queue];
+    
     [_queue removeAllObjects];
   }
 }
