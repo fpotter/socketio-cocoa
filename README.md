@@ -2,6 +2,8 @@
 
 A Cocoa interface to Socket.IO by way of web sockets.  If you're already using Socket.IO stuff for your web site, you might find it convenient to use the same architecture for your mobile stuff, too.
 
+We use this with [juggernaut-cocoa](https://github.com/fpotter/juggernaut-cocoa) to work with the Juggernaut (Socket.IO-back) push service.
+
 ## Usage
 
     SocketIoClient *client = [[SocketIoClient alloc] initWithHost:host port:port];
