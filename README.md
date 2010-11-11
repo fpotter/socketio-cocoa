@@ -33,7 +33,10 @@ You'll get sweet callbacks on your delegate when stuff goes down...
 
 ## Getting the code
 
-    git clone git://github.com/fpotter/socketio-cocoa.git socketio-cocoa && cd socketio-cocoa && git submodule init && git submodule update
+    git clone git://github.com/fpotter/socketio-cocoa.git socketio-cocoa && \
+    cd socketio-cocoa && \
+    git submodule init && \
+    git submodule update
  
 ## Adding to your project
 
