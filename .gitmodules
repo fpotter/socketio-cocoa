@@ -1,0 +1,3 @@
+[submodule "cocoa-websocket"]
+	path = cocoa-websocket
+	url = git://github.com/erichocean/cocoa-websocket.git
