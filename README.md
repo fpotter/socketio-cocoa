@@ -27,6 +27,8 @@ You'll get sweet callbacks on your delegate when stuff goes down...
         NSLog(@"Received: %@", message);
     }
 
+And, of course, all the normal heartbeat / reconnection stuff will happen for you behind the scenes.
+
 ## Depends on
 
 * AsyncSocket [http://code.google.com/p/cocoaasyncsocket/](http://code.google.com/p/cocoaasyncsocket/)
