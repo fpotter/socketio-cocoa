@@ -2,7 +2,7 @@
 
 A Cocoa interface to Socket.IO by way of web sockets.  If you're already using Socket.IO stuff for your web site, you might find it convenient to use the same architecture for your mobile stuff, too.
 
-We use this with [juggernaut-cocoa](https://github.com/fpotter/juggernaut-cocoa) to work with the Juggernaut, a realtime/push service based on Socket.IO.
+We use this with [juggernaut-cocoa](https://github.com/fpotter/juggernaut-cocoa) to work with [Juggernaut](https://github.com/maccman/juggernaut), a realtime/push service based on Socket.IO.
 
 ## Usage
 
