@@ -20,9 +20,9 @@
 
 @synthesize sessionId = _sessionId, delegate = _delegate, connectTimeout = _connectTimeout, 
             tryAgainOnConnectTimeout = _tryAgainOnConnectTimeout, heartbeatTimeout = _heartbeatTimeout,
-            isConnecting = _isConnecting, isConnected = _isConnected;
+            isConnecting = _isConnecting, isConnected = _isConnected, host = _host, port = _port;
 
-- (id)initWithHost:(NSString *)host port:(int)port {
+- (id)initWithHost:(NSString *)host port:(NSInteger)port {
   if (self = [super init]) {
     _host = [host retain];
     _port = port;

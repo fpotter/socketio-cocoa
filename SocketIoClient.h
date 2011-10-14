@@ -32,6 +32,9 @@
   NSMutableArray *_queue;
 }
 
+@property (nonatomic, retain, readonly) NSString *host;
+@property (nonatomic, readonly) NSInteger port;
+
 @property (nonatomic, retain) NSString *sessionId;
 @property (nonatomic, readonly) BOOL isConnected;
 @property (nonatomic, readonly) BOOL isConnecting;
@@ -43,7 +46,7 @@
 
 @property (nonatomic, assign) NSTimeInterval heartbeatTimeout;
 
-- (id)initWithHost:(NSString *)host port:(int)port;
+- (id)initWithHost:(NSString *)host port:(NSInteger)port;
 
 - (void)connect;
 - (void)disconnect;
