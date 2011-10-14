@@ -1,3 +1,5 @@
+**This library does not work with Socket.IO 0.7.  Philipp Kyeck has created another library that does - [socket.IO-objc](https://github.com/pkyeck/socket.IO-objc)**
+
 # Socket.IO Client for Cocoa
 
 A Cocoa interface to Socket.IO by way of web sockets.  If you're already using Socket.IO stuff for your web site, you might find it convenient to use the same architecture for your mobile stuff, too.
